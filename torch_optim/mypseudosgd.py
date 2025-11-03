@@ -3,7 +3,7 @@ import math
 import torch
 from torch.optim.optimizer import Optimizer
 
-from .types import OptFloat, OptLossClosure, Params
+from .utils import OptFloat, OptLossClosure, Params
 
 __all__ = ("MypseudoSGD")
 
@@ -90,7 +90,7 @@ class MypseudoSGD(Optimizer):
 
                 grad = p.grad.data
                 state = self.state[p]
-                pseudo = grad / torch.sqrt(grad**2 + eps) 
+                pseudo = grad / torch.sqrt(grad**2 + eps**2) 
                 
                 # State initialization
                 if len(state) == 0:
