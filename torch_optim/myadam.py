@@ -3,7 +3,7 @@ import math
 import torch
 from torch.optim.optimizer import Optimizer
 
-from .types import Betas2, OptFloat, OptLossClosure, Params
+from .utils import Betas2, OptFloat, OptLossClosure, Params
 
 __all__ = ("MyAdam",)
 
@@ -109,7 +109,7 @@ class MyAdam(Optimizer):
                 exp_avg_sq.mul_(beta2).addcmul_(grad, grad, value=1 - beta2)
 
                 denom = ((exp_avg_sq / bias_correction2).add_(
-                    group["eps"]).sqrt() #done!
+                    group["eps"]**2).sqrt() #done!
                 )
                 step_size = group["lr"] / bias_correction1
 
